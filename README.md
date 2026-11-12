@@ -129,3 +129,9 @@ Contains `scenario`, `algo_variant`, `metric`, `n_seeds`, `censored_seeds`, `mea
 
 ### `results/paired_bf_vs_noreb.csv` (Paired Effect Size)
 Contains paired per-seed differences ($\text{DERALBA\_BF} - \text{DERALBA\_BF\_NOREB}$) evaluating the isolated impact of the idle-VM rebalancing mechanism.
+## 6. Team
+
+- Kunal Kashyap (2024UIT3126)
+
+
+Department of Information Technology, Netaji Subhas University of Technology (NSUT), New Delhi
