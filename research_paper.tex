@@ -285,7 +285,7 @@ The implemented process follows the structure of the DE-RALBA paper, with explic
 \end{itemize}
 
 \subsection{Baseline scheduling algorithms and decision intervals}
-Round Robin, EFT and Dynamic Max-Min (Section~\ref{sec:related}) are the baselines. RR sends cloudlet $i$ to VM $i \bmod m$ on arrival. EFT assigns each cloudlet on arrival to the VM with the minimum estimated completion time (Eq.~\ref{eq:eftbase}). Dynamic Max-Min collects the cloudlets of a round, sorts them by decreasing length, and assigns each to the VM giving the earliest finish, updating VM availability after each assignment.
+Round Robin, EFT and Dynamic Max-Min (Section~\ref{sec:related}) are the baselines. RR sends cloudlet $i$ to VM $i \bmod m$ on arrival. EFT assigns each cloudlet on arrival to the VM with the minimum estimated completion time (Eq.~\ref{eq:eftbase}). Dynamic Max-Min collects the cloudlets of a round and repeatedly selects the cloudlet whose earliest possible completion time is largest, assigns it to the VM that gives that completion time, and updates that VM's availability before the next selection.
 
 The round-based algorithms make allocation decisions every 1 s or 5 s. A short interval considers waiting cloudlets more often, whereas a longer interval lets more accumulate in a batch but delays their scheduling. The interval is an experimental parameter, not a separate algorithm. The released-code variant is evaluated only at 1 s because its decisions are tied to a 1 s clock.
 
@@ -309,7 +309,7 @@ Number of VMs & 7 & 7 & 6 & 6 & 6 & 6 & 6 & 6 & 50 \\
 \end{tabular}
 \end{table}
 
-Running 1,980 full CloudSim Plus simulations of 1,000 cloudlets each would be slow, so the cloudlet execution is computed by a discrete-event queue model (\texttt{QueueExec}) of these VMs. A cloudlet dispatched to VM $j$ at time $d_i$ starts at $S_i = \max(d_i, F_{\text{prev}})$, where $F_{\text{prev}}$ is the finish time of the previous cloudlet in that VM's queue, and finishes at $F_i = S_i + \mathit{MI}_i/\mathit{MIPS}_j$. To check this model, we executed four 100-cloudlet schedules both in \texttt{QueueExec} and in CloudSim Plus 8.5.7, with one host per VM, 512 MB RAM and 1,000 Mbps bandwidth per VM, and each cloudlet submitted with a delay equal to its dispatch time (Table~\ref{tab:valid}).
+Running 1,980 full CloudSim Plus simulations of 1,000 cloudlets each would be slow, so the cloudlet execution is computed by a discrete-event queue model (\texttt{QueueExec}) of these VMs. A cloudlet dispatched to VM $j$ at time $d_i$ starts at $S_i = \max(d_i, F_{\text{prev}})$, where $F_{\text{prev}}$ is the finish time of the previous cloudlet in that VM's queue, and finishes at $F_i = S_i + \mathit{MI}_i/\mathit{MIPS}_j$. To check this model, we executed four 100-cloudlet schedules both in \texttt{QueueExec} and in CloudSim Plus 8.5.7 (two with steady arrivals at $\rho = 0.5$, and two with a $20\times$ burst lasting 5 s from $t = 50$ s, which suits the shorter 100-cloudlet workload), with one host per VM, 512 MB RAM and 1,000 Mbps bandwidth per VM, and each cloudlet submitted with a delay equal to its dispatch time (Table~\ref{tab:valid}).
 
 \begin{table}[h]
 \caption{Agreement between the queue model and CloudSim Plus 8.5.7 on four 100-cloudlet schedules (times in seconds)}\label{tab:valid}
