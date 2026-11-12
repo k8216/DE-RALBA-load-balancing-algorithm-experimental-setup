@@ -1,0 +1,7 @@
+java=26.0.2
+seeds=30
+jobs=1000
+rho=0.5
+round_lens=[1.0, 5.0, 30.0]
+spike_multipliers=[4.0, 20.0, 60.0, 150.0]
+start=2026-11-11T15:59:19.251483300Z
